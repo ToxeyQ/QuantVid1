@@ -119,7 +119,7 @@ class QuantProblemVisualization(Scene):
 
         self.play(Write(check.shift(RIGHT*3)))
         self.wait(2)
-        self.play(FadeOut(check, dots, inequality, bars, letters_to_move))  #Clear szene to continue
+        self.play(FadeOut(check, bars, inequality, dots, letters_to_move))  #Clear szene to continue
 
 
         final_text = Text("How do we continue from here")
