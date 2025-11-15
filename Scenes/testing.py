@@ -11,6 +11,7 @@ class AnimateLetters(Scene):
         #mathTex0[1].set_color(YELLOW)
         #mathTex0[3].set_color(YELLOW)
         #mathTex0[5].set_color(YELLOW)
+        #Added thingy
 
         mathTex0 = MathTex(r"e \sim \text{Uniform}[0,5]")
         #self.play(Create(mathTex0))
