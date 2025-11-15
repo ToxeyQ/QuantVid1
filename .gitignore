@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+.venv/
+
+# Manim output folders
+media/
+output/
+videos/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
