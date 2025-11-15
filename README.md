@@ -13,7 +13,7 @@ This video visualizes a classic probability problem involving independent unifor
 > What is the probability that:  
 > a < b < c < d < e ?
 
-The animation illustrates the **ranges of each variable** as horizontal bars, and dynamically shows how the variable names move from the problem statement to the corresponding bars. Colors, checkmarks, and crosses are used to highlight correct and incorrect positions, helping viewers intuitively understand **ordered outcomes** for continuous random variables.
+The video aims to introduce and solve this problem in a easy to follow and visually pleasing way. 
 
 ---
 
@@ -29,6 +29,8 @@ The animation illustrates the **ranges of each variable** as horizontal bars, an
 
 ```plaintext
 Quant1/
-├── main.py         # Manim scripts for the animation
-├── helpers.py      # Optional helper functions for grids, bars, symbols
-└── assets/         # Optional media (images, sounds, etc.)
+├── Scenes
+    ├──intro.py                     # Short intro to vid
+    ├──problem_statement.py         # Code for introducing the problem
+    ├──main.py                      # Code for the main solution
+    ├──testing.py                   # A file to test quick renders
