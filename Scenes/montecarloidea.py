@@ -28,6 +28,10 @@ class Demo(Scene):
             self.add(dot)  
         self.wait(0.5)
 
+        estimate = DecimalNumber(0, num_decimal_places=3)
+        estimate_text = VGroup(Text("Estimate:"), estimate).arrange(RIGHT, buff=0.4)
+        estimate_text.to_edge(RIGHT)
+        self.add(estimate_text)
 
         #Probably better to randomly generate these but eeh
         runs = [
@@ -52,7 +56,7 @@ class Demo(Scene):
             [0.6,1.3,2.3,3.5,2.2],
             [0.2,0.7,0.8,1.6,1.6]
         ]
-
+        #testing = [0,0,0.5,0.4,0.3,0.35]  #For testing purposes
 
 
         #This whole section is to have the speedy effect, its highly customizable so check whats best!
@@ -62,14 +66,14 @@ class Demo(Scene):
 
         for run_idx, x_positions in enumerate(runs):
             # exponential decrease: run_time = min + (max - min) * exp(-k * idx)
-            k = 0.25  #stiffness coeff customize!! 0.25 is aestetic but takes a while
+            k = 0.3  #stiffness coeff customize!! 0.25 is aestetic but takes a while
             run_time = min_run_time + (max_run_time - min_run_time) * np.exp(-k*run_idx)
 
             animations = []
             for i, x in enumerate(x_positions):
                 new_x = np.clip(left_x + x, left_x, left_x + max_values[i])
                 animations.append(dots[i].animate.move_to([new_x, 2-i, 0]))
-            self.play(*animations, run_time=run_time)
+            self.play(*animations, estimate.animate.set_value(run_idx), run_time=run_time)  #Replace with actual estimate value
             self.wait(0.1)  #Custom!!!! pause between runs (also a bit hardcoded whoops)
 
 
