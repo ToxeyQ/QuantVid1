@@ -22,8 +22,24 @@ class QuantProblemVisualization(Scene):
 
         statement.arrange(DOWN, buff=0.5).to_edge(UP)
         #self.play(*[Write(s) for s in statement])
-        self.play(Write(statement))
-        self.wait(1)
+        #self.play(Write(statement), run_time=6)
+
+        for i, state in enumerate(statement):
+
+            if i == 0:
+                time = 2.3
+            if i == 6:  
+                time = 3.3
+            else:
+                time = 1
+            self.play(Write(state), run_time=time)
+            self.wait(0.2)
+        #self.play(Write(statement[0]), run_time=3)
+
+        #self.play(Write(statement[1:6]), run_time=3)
+        #self.play(Write(statement[6]), run_time=2)
+
+        self.wait(1) 
 
 
 
