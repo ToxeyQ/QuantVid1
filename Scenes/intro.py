@@ -144,27 +144,32 @@ class QuantumIntro(Scene):
 
 
         self.play(
-            Write(title),
-            Create(curve),
+            LaggedStart(
+            AnimationGroup(Write(title),Create(curve)),
+            FadeIn(white_overlays, pupils),
+            lag_ratio=0.833  # Start FadeIn 0.5s before the above finishes
+            ),
             run_time=3
         )
 
-    # Start FadeIn 0.5s before the above finishes
-        self.wait(2.5)  # wait 2.5s into the 3s animation
-        self.play(FadeIn(white_overlays, pupils), run_time=0.5)
-        # Fade them in so you see the effect
         #self.play(FadeIn(white_overlays, pupils), run_time=0.5)
 
 
         # Animate pupils and look at one of the Gaussian peaks
-        self.play(pupils.animate.shift(LEFT*0.2), run_time=0.3)  # Slight pupil movement for effect
-        self.play(pupils.animate.shift(RIGHT*0.2), run_time=0.4)  # Slight pupil movement for effect
-        self.play(pupils[0].animate.shift(DOWN*0.3 + 0.1*RIGHT), pupils[1].animate.shift(LEFT*0.1 + DOWN* 0.3), run_time=0.4)  # Slight pupil movement for effect
+        self.play(pupils.animate.shift(LEFT*0.2), run_time=0.6)  # Slight pupil movement for effect
+        self.play(pupils.animate.shift(RIGHT*0.2), run_time=0.7)  # Slight pupil movement for effect
         
 
 
 
         ball = Circle(radius=0.3, color=BLUE, fill_opacity=1)
         ball.move_to([2, -2, 0]) # example position, adjust as needed
-        self.play(FadeIn(ball), FadeOut(curve), run_time=0.2)
+
+        #self.play(pupils[0].animate.shift(DOWN*0.3 + 0.1*RIGHT), pupils[1].animate.shift(LEFT*0.1 + DOWN* 0.3), run_time=0.6)  #Somehow make this lagged
+        #self.play(FadeIn(ball), FadeOut(curve), run_time=0.2)
+        self.play(LaggedStart(AnimationGroup(pupils[0].animate.shift(DOWN*0.3 + 0.1*RIGHT), pupils[1].animate.shift(LEFT*0.1 + DOWN* 0.3)), AnimationGroup(FadeIn(ball), FadeOut(curve)), run_time=0.7, lag_ratio=0.3))
+
+        self.play(pupils[0].animate.shift(UP*0.2 - 0.2*RIGHT), pupils[1].animate.shift(UP* 0.2), run_time=0.6)  #Somehow make this lagged
+        #Make a fade to black
+        self.play( FadeOut(white_overlays), FadeOut(title), FadeOut(pupils), FadeOut(ball), run_time=1)     #Q sticks out so fix
         self.wait(1)
