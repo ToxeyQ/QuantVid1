@@ -9,16 +9,20 @@ class QuantProblemVisualization(Scene):
         """
 
         #Create text but mark letter so that it can be treated seperatly
+        top_text = Text("Given 5 random variables:")
         a_text = MathTex(r"a \sim \text{Uniform}[0,1]", substrings_to_isolate=["a"])
         b_text = MathTex(r"b \sim \text{Uniform}[0,2]", substrings_to_isolate=["b"])
         c_text = MathTex(r"c \sim \text{Uniform}[0,3]", substrings_to_isolate=["c"])
         d_text = MathTex(r"d \sim \text{Uniform}[0,4]", substrings_to_isolate=["d"])
         e_text = MathTex(r"e", r"\sim \text{Uniform}[0,5]")     #best way to handle this bs
-        statement = VGroup(a_text, b_text, c_text, d_text, e_text)
+        bottom_text = Text("What is the probability that a < b < c < d < e ?")
+
+        statement = VGroup(top_text,a_text, b_text, c_text, d_text, e_text, bottom_text)
 
 
         statement.arrange(DOWN, buff=0.5).to_edge(UP)
-        self.play(*[Write(s) for s in statement])
+        #self.play(*[Write(s) for s in statement])
+        self.play(Write(statement))
         self.wait(1)
 
 
@@ -65,8 +69,8 @@ class QuantProblemVisualization(Scene):
         self.wait(2)
 
 
-        inequality = MathTex("a < b < c < d < e").to_edge(DOWN)     #Not so nice rn change pos and timing 
-        self.play(Write(inequality))
+        #inequality = MathTex("a < b < c < d < e").to_edge(DOWN)     #Not so nice rn change pos and timing 
+        #self.play(Write(inequality))
 
 
 
@@ -119,7 +123,7 @@ class QuantProblemVisualization(Scene):
 
         self.play(Write(check.shift(RIGHT*3)))
         self.wait(2)
-        self.play(FadeOut(check, bars, inequality, dots, letters_to_move))  #Clear szene to continue
+        self.play(FadeOut(check, bars, dots, letters_to_move, statement[0], statement[6]))  #Clear szene to continue
 
 
         final_text = Text("How do we continue from here")

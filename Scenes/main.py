@@ -6,6 +6,20 @@ from manim import *
 class Demo(Scene):
     def construct(self):
 
+
+
+        # Transition , probably best to add only in final scene
+        timer_text = Text("3", font_size=200)
+        self.add(timer_text)
+
+
+        # Countdown from 3 to 1
+        for i in [3, 2, 1]:
+            timer_text.become(Text(str(i), font_size=200))
+            self.play(FadeIn(timer_text), run_time=0.7)
+            self.play(FadeOut(timer_text), run_time=0.7)
+        self.wait(1)
+
         #Raw rectangle
         rect = Rectangle(width=6, height=3, color=WHITE)
         rect.move_to(ORIGIN)
@@ -58,4 +72,30 @@ class Demo(Scene):
         self.play(Create(diagonal))
         self.wait(3)
         self.play(FadeIn(top_polygon), FadeIn(bottom_polygon))
+        self.wait(3)
+
+
+
+        self.play(FadeOut(rect, vertical_line, diagonal, label_a, label_b, label_y1, label_y2, label_x1, top_polygon, bottom_polygon))
+
+        #Integral part
+
+        #So what is the expectation value of b assuming a < b
+
+        integral_text = Text("We can compute the expectation value of b if a < b:", font_size=36)
+
+        integral_text.to_edge(UP)
+        self.play(Write(integral_text))
+        integral_eq = MathTex(r"E(b) = \int_{b_1}^{b_2} \rho (b) b db")
+        integral_eq.next_to(integral_text, DOWN, buff=0.5)
+        #Explain density function so also normalization
+        integral_eq2 = MathTex(r"E(b) = \frac{2}{3}(\int_{0}^{1} b^2 db + \int_{1}^{2} b db")
+                
+        integral_eq2.next_to(integral_eq, DOWN, buff=0.5)
+
+        final_result = MathTex(r"E(b) = 11/9")
+
+
+        self.play(Write(integral_eq))
+        self.play(Write(integral_eq2))
         self.wait(3)
