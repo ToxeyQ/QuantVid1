@@ -18,7 +18,8 @@ class Demo(Scene):
         self.play(Write(step1))
         self.wait(1)
         self.play(FadeOut(step1))   
-        
+
+        subquestion1 = Text("Given a,b what is the probability that b>a", font_size=48)
 
         #Raw rectangle
         rect = Rectangle(width=6, height=3, color=WHITE)
@@ -74,7 +75,7 @@ class Demo(Scene):
         self.play(FadeIn(top_polygon), FadeIn(bottom_polygon))
         self.wait(3)
 
-
+        #Here add an explaination of Area_green / Area_total = p(a<b) = 0.75
 
         self.play(FadeOut(rect, vertical_line, diagonal, label_a, label_b, label_y1, label_y2, label_x1, top_polygon, bottom_polygon))
 
@@ -101,3 +102,39 @@ class Demo(Scene):
 
 
         self.wait(3)
+
+
+
+class Demo2(Scene):
+    def construct(self):
+        axes = Axes(
+            x_range=[0, 2.5, 0.5],
+            y_range=[0, 1.2, 0.2],
+            x_length=7,
+            y_length=4,
+            axis_config={"include_numbers": True},
+        )
+
+        axes_labels = axes.get_axis_labels(
+            Tex("b"), Tex(r"\rho(b)")
+        )
+
+        # Piece 1: f(b)=b on (0,1)
+        line1 = axes.plot(lambda b: b, x_range=[0, 1], color=BLUE)
+
+        # Piece 2: f(b)=1 on (1,2)
+        line2 = axes.plot(lambda b: 1, x_range=[1, 2], color=BLUE)
+
+        # Vertical line at b=2 down to y=0
+        vline = axes.get_vertical_line(axes.c2p(2, 0), color=RED)
+
+        # Dot at (1,1) to close the corner
+        dot = Dot(axes.c2p(1,1), color=BLUE)
+
+        self.play(Create(axes), Write(axes_labels))
+        self.play(Create(line1))
+        self.play(Create(line2))
+        self.play(Create(vline))
+        self.play(FadeIn(dot))
+
+        self.wait()
